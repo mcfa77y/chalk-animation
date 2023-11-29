@@ -8,7 +8,6 @@ const config: Config = {
   slowTestThreshold: 10,
   roots: ["<rootDir>"],
   testMatch: ["**/__tests__/*.test.ts"],
-  globalTeardown: "<rootDir>/CI/cleanup/Zombies.ts",
 };
 
 export default config;
