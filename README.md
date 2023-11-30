@@ -1,6 +1,6 @@
 # chalk-animation
 
-> Colorful animations in terminal output
+Colorful animations in terminal output
 
 
 ## Available animations
