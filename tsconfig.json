@@ -16,6 +16,7 @@
     "strict": true,
     "skipLibCheck": true,
     "allowJs": true,
+    "experimentalDecorators": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
