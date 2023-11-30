@@ -1,23 +1,18 @@
 import type { AnimationFN } from "./types";
-import { InstanceTracker } from "./InstanceTracker";
+import { FrameRate } from "./FrameRate";
+import { Decor } from "./Decor";
 
-export class Animation extends InstanceTracker {
+export class Animation extends FrameRate {
   lines: number;
-  speed: number;
-  delay: number;
   text: string[];
   stopped = false;
-  currentFrame = 0;
   initialized = false;
   effect: AnimationFN;
-  static readonly BREAK_LINES = /\r\n|\r|\n/;
-  controller: ReturnType<typeof setTimeout> | null = null;
+  static readonly LINE_BREAKS = /\r\n|\r|\n/;
   constructor(effect: AnimationFN, str: string, delay = 0, speed = 0) {
-    super();
-    this.speed = speed;
-    this.delay = delay;
+    super(delay, speed);
     this.effect = effect;
-    this.text = str.split(Animation.BREAK_LINES);
+    this.text = str.split(Animation.LINE_BREAKS);
     this.lines = this.text.length;
   }
 
@@ -26,51 +21,37 @@ export class Animation extends InstanceTracker {
       Animation.LOG("\n".repeat(this.lines - 1));
       this.initialized = true;
     }
-    Animation.LOG(this.frame());
-    this.controller = setTimeout(() => {
+    Animation.LOG(this.nextFrame());
+    this.schedule(() => {
       if (!this.stopped) {
         this.render();
       }
-    }, this.delay / this.speed);
+    });
   }
 
-  public frame() {
-    this.currentFrame++;
+  public nextFrame() {
+    this.increment();
     return (
       "\u001B[" +
       `${this.lines}` +
       "F\u001B[G\u001B[2K" +
-      this.text.map((str) => this.effect(str, this.currentFrame)).join("\n")
+      this.text.map(str => this.effect(str, this.current)).join("\n")
     );
   }
 
-  public readonly replace = this.chainable((str: string) => {
-    this.text = str.split(Animation.BREAK_LINES);
+  public readonly replace = Decor.chainable(this, (str: string) => {
+    this.text = str.split(Animation.LINE_BREAKS);
     this.lines = this.text.length;
   });
 
-  public readonly stop = this.chainable(() => {
+  public readonly stop = Decor.chainable(this, () => {
     this.clearFrames();
     this.stopped = true;
   });
 
-  public readonly start = this.chainable(() => {
+  public readonly start = Decor.chainable(this, () => {
     this.clearFrames();
     this.stopped = false;
     this.render();
   });
-
-  private clearFrames() {
-    if (this.controller) {
-      clearTimeout(this.controller);
-      this.controller = null;
-    }
-  }
-
-  private chainable<F extends (...args: any[]) => void>(func: F) {
-    return (...params: Parameters<F>): Animation => {
-      func(...params);
-      return this;
-    };
-  }
 }

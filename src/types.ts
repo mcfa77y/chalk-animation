@@ -8,8 +8,8 @@ export type AnimationName =
   | "neon"
   | "karaoke";
 
-export type MethodLike = (...args: any[]) => any;
+export type MethodLike<T = any> = (...args: any[]) => T;
 
-export type MethodKeys<T> = keyof {
-  [K in keyof T as Required<T>[K] extends MethodLike ? K : never]: T[K];
+export type MethodKeys<T, R = any> = keyof {
+  [K in keyof T as Required<T>[K] extends MethodLike<R> ? K : never]: T[K];
 };

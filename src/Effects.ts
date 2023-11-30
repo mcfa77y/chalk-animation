@@ -73,7 +73,7 @@ export class Effects {
           chunks.push(
             this.glitchChars[
               Math.floor(Math.random() * this.glitchChars.length)
-            ]
+            ],
           );
         } else if (Math.random() > 0.005) {
           chunks.push(str[i]);

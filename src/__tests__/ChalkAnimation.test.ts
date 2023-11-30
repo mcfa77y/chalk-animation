@@ -26,7 +26,7 @@ describe("Chalk Animation", () => {
       InstanceTracker.IDs.reset();
     });
 
-    animations.forEach((name) => {
+    animations.forEach(name => {
       it(`ChalkAnimation.${name} - returns an initialized animation instance`, () => {
         const animation = ChalkAnimation[name]("hello");
         expect(animation.effect).toEqual(Effects[name]);
@@ -34,7 +34,7 @@ describe("Chalk Animation", () => {
         expect(animation.text).toEqual(["hello"]);
         expect(animation.lines).toEqual(1);
         expect(animation.speed).toEqual(1);
-        expect(animation.currentFrame).toEqual(1);
+        expect(animation.current).toEqual(1);
         expect(animation.initialized).toEqual(true);
         expect(animation.stopped).toEqual(false);
         expect(animation.controller).not.toEqual(null);
@@ -44,7 +44,7 @@ describe("Chalk Animation", () => {
         expect(animation.controller).toEqual(null);
       });
 
-      InstanceTracker.consoleMethods.forEach((method) => {
+      InstanceTracker.loggers.forEach(method => {
         it(`ChalkAnimation.${name} - subsequent console.${method} stop the animation`, () => {
           const animation = ChalkAnimation[name]("hello");
           expect(animation.stopped).toEqual(false);
@@ -58,16 +58,16 @@ describe("Chalk Animation", () => {
         animation.stop();
         expect(animation.stopped).toEqual(true);
         animation.start();
-        expect(animation.currentFrame).toEqual(2);
+        expect(animation.current).toEqual(2);
       });
 
       it(`ChalkAnimation.${name} - can be manually rendered at a desired frame rate`, () => {
         const animation = ChalkAnimation[name]("hello").stop();
-        expect(animation.currentFrame).toEqual(1);
+        expect(animation.current).toEqual(1);
         animation.render();
-        expect(animation.currentFrame).toEqual(2);
+        expect(animation.current).toEqual(2);
         animation.render();
-        expect(animation.currentFrame).toEqual(3);
+        expect(animation.current).toEqual(3);
       });
 
       it(`ChalkAnimation.${name} - text can be replaced`, () => {
@@ -75,9 +75,9 @@ describe("Chalk Animation", () => {
           return;
         }
         const animation = ChalkAnimation[name]("Y Y Y").stop();
-        const f1 = animation.frame();
+        const f1 = animation.nextFrame();
         animation.replace("Z Z Z");
-        const f2 = animation.frame();
+        const f2 = animation.nextFrame();
         expect(f1.includes("Y")).toEqual(true);
         expect(f1.includes("Z")).toEqual(false);
         expect(f2.includes("Y")).toEqual(false);
@@ -86,20 +86,20 @@ describe("Chalk Animation", () => {
 
       it(`ChalkAnimation.${name} - supports multiline strings`, () => {
         const animation = ChalkAnimation[name](
-          "Lorem\nipsum\ndolor\nsit\namet"
+          "Lorem\nipsum\ndolor\nsit\namet",
         ).stop();
-        const frame = animation.frame();
+        const frame = animation.nextFrame();
         expect(animation.lines).toEqual(5);
         expect(frame.split("\n")).toHaveLength(5);
       });
 
       it(`ChalkAnimation.${name} - supports 5K+ frames`, () => {
         const animation = ChalkAnimation[name](
-          "Lorem\nipsum\ndolor\nsit\namet"
+          "Lorem\nipsum\ndolor\nsit\namet",
         ).stop();
         for (let i = 0; i < 5000; i++) {
           expect(() => {
-            animation.frame();
+            animation.nextFrame();
           }).not.toThrow();
         }
       });

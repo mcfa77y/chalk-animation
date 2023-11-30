@@ -1,5 +1,5 @@
-import { Animation } from "./Animation";
 import { Effects } from "./Effects";
+import { Animation } from "./Animation";
 import type { AnimationName } from "./types";
 
 /**
@@ -14,11 +14,11 @@ import type { AnimationName } from "./types";
  * ```
  */
 export class ChalkAnimation {
-  public static readonly rainbow = this.configure("rainbow", 15);
+  public static readonly neon = this.configure("neon", 500);
+  public static readonly radar = this.configure("radar", 50);
   public static readonly pulse = this.configure("pulse", 16);
   public static readonly glitch = this.configure("glitch", 55);
-  public static readonly radar = this.configure("radar", 50);
-  public static readonly neon = this.configure("neon", 500);
+  public static readonly rainbow = this.configure("rainbow", 15);
   public static readonly karaoke = this.configure("karaoke", 50);
 
   private static configure(effect: AnimationName, delay: number) {
