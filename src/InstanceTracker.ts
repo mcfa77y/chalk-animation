@@ -6,6 +6,7 @@ export class InstanceTracker {
   static readonly LOG = console.log;
   static IDs = new AutoIncrementingID();
   static bucket = new Map<string, Animation>();
+  static consoleMethods = ["log", "warn", "info", "error"] as const;
   constructor() {
     InstanceTracker.clearAll();
     this.ID = InstanceTracker.IDs.get();
@@ -13,10 +14,11 @@ export class InstanceTracker {
   }
 
   static {
-    const methods = ["log", "warn", "info", "error"] as const;
-    methods.forEach((method) => {
+    this.consoleMethods.forEach((method) => {
       const original = console[method];
-      console[method] = function (...args: Parameters<typeof console.log>) {
+      console[method] = function (
+        ...args: Parameters<(typeof console)[typeof method]>
+      ) {
         InstanceTracker.clearAll();
         return original.apply(console, args);
       };

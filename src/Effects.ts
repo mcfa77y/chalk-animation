@@ -2,14 +2,14 @@ import chalk from "chalk";
 import gradient from "gradient-string";
 
 export class Effects {
-  public static longHsv = { interpolation: "hsv", hsvSpin: "long" };
-  public static glitchChars =
+  public static readonly longHsv = { interpolation: "hsv", hsvSpin: "long" };
+  public static readonly glitchChars =
     "x*0987654321[]0-~@#(____!!!!\\|?????....0000\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
   public static rainbow(str: string, frame: number) {
     const hue = 5 * frame;
     const leftColor = { h: hue % 360, s: 1, v: 1 };
     const rightColor = { h: (hue + 1) % 360, s: 1, v: 1 };
-    return gradient(leftColor, rightColor)(str, Effects.longHsv);
+    return gradient(leftColor, rightColor)(str, this.longHsv);
   }
 
   public static pulse(str: string, frame: number) {

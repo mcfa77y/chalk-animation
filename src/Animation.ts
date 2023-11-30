@@ -2,7 +2,6 @@ import type { AnimationFN } from "./types";
 import { InstanceTracker } from "./InstanceTracker";
 
 export class Animation extends InstanceTracker {
-  effect: any;
   lines: number;
   speed: number;
   delay: number;
@@ -10,13 +9,15 @@ export class Animation extends InstanceTracker {
   stopped = false;
   currentFrame = 0;
   initialized = false;
+  effect: AnimationFN;
+  static readonly BREAK_LINES = /\r\n|\r|\n/;
   controller: ReturnType<typeof setTimeout> | null = null;
   constructor(effect: AnimationFN, str: string, delay = 0, speed = 0) {
     super();
-    this.effect = effect;
     this.speed = speed;
     this.delay = delay;
-    this.text = str.split(/\r\n|\r|\n/);
+    this.effect = effect;
+    this.text = str.split(Animation.BREAK_LINES);
     this.lines = this.text.length;
   }
 
@@ -43,29 +44,33 @@ export class Animation extends InstanceTracker {
     );
   }
 
-  public replace(str: string) {
-    this.text = str.split(/\r\n|\r|\n/);
+  public readonly replace = this.chainable((str: string) => {
+    this.text = str.split(Animation.BREAK_LINES);
     this.lines = this.text.length;
-    return this;
-  }
+  });
 
-  public stop() {
+  public readonly stop = this.chainable(() => {
     this.clearFrames();
     this.stopped = true;
-    return this;
-  }
+  });
 
-  public start() {
+  public readonly start = this.chainable(() => {
     this.clearFrames();
     this.stopped = false;
     this.render();
-    return this;
-  }
+  });
 
   private clearFrames() {
     if (this.controller) {
       clearTimeout(this.controller);
       this.controller = null;
     }
+  }
+
+  private chainable<F extends (...args: any[]) => void>(func: F) {
+    return (...params: Parameters<F>): Animation => {
+      func(...params);
+      return this;
+    };
   }
 }

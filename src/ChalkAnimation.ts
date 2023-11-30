@@ -1,33 +1,32 @@
-import { Effects } from "./Effects";
 import { Animation } from "./Animation";
-import { animateString } from "./animateString";
+import { Effects } from "./Effects";
+import type { AnimationName } from "./types";
 
+/**
+ * Chalk Animation
+ *
+ * Console animations for your CLI tools
+ *
+ * ```typescript
+ * const animation = ChalkAnimation.rainbow("hello!");
+ * animation.stop();
+ * animation.start();
+ * ```
+ */
 export class ChalkAnimation {
-  public static rainbow(str: string, speed = 1) {
-    return animateString(Effects.rainbow, str, 15, speed);
-  }
+  public static readonly rainbow = this.configure("rainbow", 15);
+  public static readonly pulse = this.configure("pulse", 16);
+  public static readonly glitch = this.configure("glitch", 55);
+  public static readonly radar = this.configure("radar", 50);
+  public static readonly neon = this.configure("neon", 500);
+  public static readonly karaoke = this.configure("karaoke", 50);
 
-  public static pulse(str: string, speed = 1) {
-    return animateString(Effects.pulse, str, 16, speed);
-  }
-
-  public static glitch(str: string, speed = 1) {
-    return animateString(Effects.glitch, str, 55, speed);
-  }
-
-  public static radar(str: string, speed = 1) {
-    return animateString(Effects.radar, str, 50, speed);
-  }
-
-  public static neon(str: string, speed = 1) {
-    return animateString(Effects.neon, str, 500, speed);
-  }
-
-  public static karaoke(str: string, speed = 1) {
-    return animateString(Effects.karaoke, str, 50, speed);
-  }
-
-  public static clearAllAnimations() {
-    return Animation.clearAll();
+  private static configure(effect: AnimationName, delay: number) {
+    return (str: string, speed = 1) => {
+      if (!speed || speed <= 0) {
+        throw new Error("Expected `speed` to be an number greater than 0");
+      }
+      return new Animation(Effects[effect], str, delay, speed).start();
+    };
   }
 }
