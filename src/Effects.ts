@@ -5,14 +5,15 @@ export class Effects {
   public static readonly longHsv = { interpolation: "hsv", hsvSpin: "long" };
   public static readonly glitchChars =
     "x*0987654321[]0-~@#(____!!!!\\|?????....0000\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
-  public static rainbow(str: string, frame: number) {
+
+  public static readonly rainbow = this.bound((str: string, frame: number) => {
     const hue = 5 * frame;
     const leftColor = { h: hue % 360, s: 1, v: 1 };
     const rightColor = { h: (hue + 1) % 360, s: 1, v: 1 };
     return gradient(leftColor, rightColor)(str, this.longHsv);
-  }
+  });
 
-  public static pulse(str: string, frame: number) {
+  public static readonly pulse = this.bound((str: string, frame: number) => {
     frame = (frame % 120) + 1;
     const transition = 6;
     const duration = 10;
@@ -46,9 +47,9 @@ export class Effects {
           ]);
 
     return g(str);
-  }
+  });
 
-  public static glitch(str: string, frame: number) {
+  public static readonly glitch = this.bound((str: string, frame: number) => {
     if (
       (frame % 2) + (frame % 3) + (frame % 11) + (frame % 29) + (frame % 37) >
       52
@@ -84,9 +85,9 @@ export class Effects {
     }
 
     return result;
-  }
+  });
 
-  public static radar(str: string, frame: number) {
+  public static readonly radar = this.bound((str: string, frame: number) => {
     const depth = Math.floor(Math.min(str.length, str.length * 0.2));
     const step = Math.floor(255 / depth);
 
@@ -104,17 +105,17 @@ export class Effects {
     }
 
     return chars.join("");
-  }
+  });
 
-  public static neon(str: string, frame: number) {
+  public static readonly neon = this.bound((str: string, frame: number) => {
     const color =
       frame % 2 === 0
         ? chalk.dim.rgb(88, 80, 85)
         : chalk.bold.rgb(213, 70, 242);
     return color(str);
-  }
+  });
 
-  public static karaoke(str: string, frame: number) {
+  public static readonly karaoke = this.bound((str: string, frame: number) => {
     const chars = (frame % (str.length + 20)) - 10;
     if (chars < 0) {
       return chalk.white(str);
@@ -123,5 +124,9 @@ export class Effects {
       chalk.rgb(255, 187, 0).bold(str.substr(0, chars)) +
       chalk.white(str.substr(chars))
     );
+  });
+
+  private static bound<F extends (...args: any[]) => any>(func: F) {
+    return func.bind(Effects);
   }
 }
