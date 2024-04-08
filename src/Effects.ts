@@ -20,7 +20,7 @@ export class Effects {
     frame = (frame % 120) + 1;
     const transition = 6;
     const duration = 10;
-    const on = "#ff1010";
+    const on = "#00ff10";
     const off = "#e6e6e6";
 
     if (frame >= 2 * transition + duration) {
