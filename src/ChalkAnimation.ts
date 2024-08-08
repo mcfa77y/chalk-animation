@@ -1,5 +1,5 @@
-import { Effects } from "./Effects";
 import { Animation } from "./Animation";
+import { Effects } from "./Effects";
 import type { AnimationName } from "./types";
 
 /**
