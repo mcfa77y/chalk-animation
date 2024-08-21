@@ -1,6 +1,6 @@
-import type { AnimationFN } from "./types";
-import { FrameRate } from "./FrameRate";
 import { Decor } from "./Decor";
+import { FrameRate } from "./FrameRate";
+import type { AnimationFN } from "./types";
 
 export class Animation extends FrameRate {
   lines: number;
