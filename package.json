@@ -1,5 +1,5 @@
 {
-  "name": "@figliolia/chalk-animation",
+  "name": "@mcfa77y/chalk-animation",
   "version": "1.0.4",
   "description": "An ESM/Common.js compatible typescript port of the popular 'chalk-animation' library",
   "keywords": [
