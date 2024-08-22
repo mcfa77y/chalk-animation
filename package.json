@@ -45,7 +45,8 @@
   "scripts": {
     "build": "ts-packager -e src",
     "lint": "tsx ci/commands/Lint.ts",
-    "test": "tsx ci/commands/Test.ts"
+    "test": "tsx ci/commands/Test.ts",
+    "prepack": "ts-packager -e src"
   },
   "dependencies": {
     "@figliolia/event-emitter": "^1.1.1",
