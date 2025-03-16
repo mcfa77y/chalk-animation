@@ -1,6 +1,6 @@
 {
   "name": "@mcfa77y/chalk-animation",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "description": "An ESM/Common.js compatible typescript port of the popular 'chalk-animation' library",
   "keywords": [
     "animation",
@@ -22,11 +22,14 @@
     "styles",
     "terminal"
   ],
-  "homepage": "https://github.com/alexfigliolia/chalk-animation",
-  "bugs": "https://github.com/alexfigliolia/chalk-animation/issues",
-  "repository": "alexfigliolia/chalk-animation",
+  "homepage": "https://github.com/mcfa77y/chalk-animation",
+  "bugs": "https://github.com/mcfa77y/chalk-animation/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcfa77y/chalk-animation.git"
+  },
   "license": "MIT",
-  "author": "Alex Figliolia",
+  "author": "mcfa77y",
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
@@ -37,7 +40,9 @@
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "types": "dist/types/index.d.ts",
-  "bin": "./cli.js",
+  "bin": {
+    "chalk-animation": "cli.js"
+  },
   "files": [
     "dist",
     "src/*"
