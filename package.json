@@ -58,9 +58,9 @@
   "devDependencies": {
     "@figliolia/child-process": "^1.0.4",
     "@figliolia/ts-packager": "^1.2.6",
-    "@types/node": "^20.19.39",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
+    "@types/node": "^25.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
     "@vitest/coverage-v8": "^4.1.5",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
@@ -75,7 +75,7 @@
     "prettier": "^3.8.3",
     "tsc-alias": "^1.8.17",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.5"
   },
   "engines": {
@@ -84,5 +84,5 @@
   "publishConfig": {
     "access": "public"
   },
-    "packageManager": "yarn@4.4.0+sha512.91d93b445d9284e7ed52931369bc89a663414e5582d00eea45c67ddc459a2582919eece27c412d6ffd1bd0793ff35399381cb229326b961798ce4f4cc60ddfdb"
+  "packageManager": "yarn@4.4.0+sha512.91d93b445d9284e7ed52931369bc89a663414e5582d00eea45c67ddc459a2582919eece27c412d6ffd1bd0793ff35399381cb229326b961798ce4f4cc60ddfdb"
 }

@@ -15,7 +15,7 @@ export class Effects {
     const hue = 5 * frame;
     const leftColor = { h: hue % 360, s: 1, v: 1 };
     const rightColor = { h: (hue + 1) % 360, s: 1, v: 1 };
-    return gradient(leftColor, rightColor)(str, this.longHsv);
+    return gradient([leftColor, rightColor], { interpolation: "hsv", hsvSpin: "long" })(str);
   }
 
   @Decor.bound
@@ -41,16 +41,16 @@ export class Effects {
     const g =
       frame <= transition / 2
         ? gradient([
-            { color: off, pos: 0.5 - frame / transition },
-            { color: on, pos: 0.5 },
-            { color: off, pos: 0.5 + frame / transition },
-          ])
+          { color: off, pos: 0.5 - frame / transition },
+          { color: on, pos: 0.5 },
+          { color: off, pos: 0.5 + frame / transition },
+        ])
         : gradient([
-            { color: off, pos: 0 },
-            { color: on, pos: 1 - frame / transition },
-            { color: on, pos: frame / transition },
-            { color: off, pos: 1 },
-          ]);
+          { color: off, pos: 0 },
+          { color: on, pos: 1 - frame / transition },
+          { color: on, pos: frame / transition },
+          { color: off, pos: 1 },
+        ]);
 
     return g(str);
   }
@@ -75,7 +75,7 @@ export class Effects {
         if (str[i] !== "\n" && str[i] !== "\r" && Math.random() > 0.995) {
           chunks.push(
             this.glitchChars[
-              Math.floor(Math.random() * this.glitchChars.length)
+            Math.floor(Math.random() * this.glitchChars.length)
             ],
           );
         } else if (Math.random() > 0.005) {
