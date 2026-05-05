@@ -48,6 +48,7 @@
     "lint": "tsx ci/commands/Lint.ts",
     "test": "tsx ci/commands/Test.ts",
     "demo": "tsx src/demo.ts",
+    "postinstall": "npm run build",
     "prepack": "ts-packager -e src -c build-esm"
   },
   "dependencies": {
