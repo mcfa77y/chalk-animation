@@ -1,11 +1,4 @@
 {
-  "tsx": {
-    "typeCheck": false,
-    "compilerOptions": {
-      "module": "CommonJS",
-      "moduleResolution": "Node"
-    }
-  },
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist",
@@ -24,7 +17,7 @@
       "ESNext"
     ],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -40,7 +33,6 @@
   "include": [
     "src",
     "ci",
-    ".eslintrc.cjs",
     "**/*.json",
     "**/*.ts",
     "**/*.js"
@@ -48,6 +40,7 @@
   "exclude": [
     "coverage",
     "dist",
-    "node_modules"
+    "node_modules",
+    "src/__tests__"
   ]
 }

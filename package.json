@@ -1,7 +1,7 @@
 {
   "name": "@mcfa77y/chalk-animation",
-  "version": "1.0.0",
-  "description": "An ESM/Common.js compatible typescript port of the popular 'chalk-animation' library",
+  "version": "1.0.4",
+  "description": "An ESM typescript port of the popular 'chalk-animation' library",
   "keywords": [
     "animation",
     "chalk",
@@ -29,30 +29,26 @@
     "url": "git+https://github.com/mcfa77y/chalk-animation.git"
   },
   "license": "MIT",
-  "author": "mcfa77y",
+  "type": "module",
+  "author": "Alex Figliolia",
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js",
       "types": "./dist/types/index.d.ts"
     }
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/mjs/index.js",
+  "main": "dist/mjs/index.js",
   "types": "dist/types/index.d.ts",
-  "bin": {
-    "chalk-animation": "cli.js"
-  },
   "files": [
     "dist",
     "src/*"
   ],
   "scripts": {
-    "build": "ts-packager -e src",
+    "build": "ts-packager -e src -c build-esm",
     "lint": "tsx ci/commands/Lint.ts",
     "test": "tsx ci/commands/Test.ts",
     "demo": "tsx src/demo.ts",
-    "prepack": "ts-packager -e src"
+    "prepack": "ts-packager -e src -c build-esm"
   },
   "dependencies": {
     "@figliolia/event-emitter": "^1.2.0",
@@ -82,6 +78,9 @@
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.1.5"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "publishConfig": {
     "access": "public"

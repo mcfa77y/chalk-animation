@@ -22,7 +22,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
     tsconfigRootDir: __dirname, // eslint-disable-line no-undef
-    project: "./tsconfig.json",
+    project: "./tsconfig.eslint.json",
   },
   overrides: [
     {
@@ -96,7 +96,7 @@ module.exports = {
     "import/resolver": {
       typescript: {
         alwaysTryTypes: true,
-        project: "./tsconfig.json",
+        project: "./tsconfig.eslint.json",
       },
     },
   },
