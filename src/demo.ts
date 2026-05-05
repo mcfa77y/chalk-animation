@@ -6,7 +6,7 @@ import { ChalkAnimation } from "./index";
 
   const animations: [string, (text: string, speed: number, options?: Color1Options | Color2Options) => any, options: any][] = [
     ["neon", ChalkAnimation.neon, { primaryHexColor: "#d55ef2", secondaryHexColor: "#585858" }],
-    ["radar", ChalkAnimation.radar, undefined],
+    ["radar", ChalkAnimation.radar, { primaryHexColor: "#00ff00" }],
     ["pulse", ChalkAnimation.pulse, { primaryHexColor: "#00ff10", secondaryHexColor: "#e6e6e6" }],
     ["glitch", ChalkAnimation.glitch, { primaryHexColor: "#00ff00" }],
     ["rainbow", ChalkAnimation.rainbow, undefined],

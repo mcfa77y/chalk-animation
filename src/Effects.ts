@@ -108,9 +108,13 @@ export class Effects {
   }
 
   @Decor.bound
-  public static radar(str: string, frame: number, _options: any) {
+  public static radar(str: string, frame: number, options: Color1Options = { primaryHexColor: "#00ff00" }) {
     const depth = Math.floor(Math.min(str.length, str.length * 0.2));
-    const step = Math.floor(255 / depth);
+
+    const hex = options.primaryHexColor.replace("#", "");
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
 
     const globalPos = frame % (str.length + depth);
 
@@ -118,8 +122,14 @@ export class Effects {
     for (let i = 0, length = str.length; i < length; i++) {
       const pos = -(i - globalPos);
       if (pos > 0 && pos <= depth - 1) {
-        const shade = (depth - pos) * step;
-        chars.push(chalk.rgb(shade, shade, shade)(str[i]));
+        const shade = (depth - pos) / depth;
+        chars.push(
+          chalk.rgb(
+            Math.round(r * shade),
+            Math.round(g * shade),
+            Math.round(b * shade)
+          )(str[i])
+        );
       } else {
         chars.push(" ");
       }
