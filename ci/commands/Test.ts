@@ -1,5 +1,5 @@
-import { Jest } from "../testing/Jest";
+import { Vitest } from "../testing/Vitest";
 
 (async () => {
-  await Jest.run();
+  await Vitest.run();
 })().catch(console.log);

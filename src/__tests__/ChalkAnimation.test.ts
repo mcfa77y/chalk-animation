@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { ChalkAnimation } from "../ChalkAnimation";
 import { Effects } from "../Effects";
 import { InstanceTracker } from "../InstanceTracker";
@@ -13,12 +14,12 @@ const animations = [
 
 describe("Chalk Animation", () => {
   afterAll(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   describe("Spawn", () => {
     beforeAll(() => {
-      jest.spyOn(InstanceTracker, "LOG").mockImplementation(() => {});
+      vi.spyOn(InstanceTracker, "LOG").mockImplementation(() => {});
     });
 
     afterEach(() => {
