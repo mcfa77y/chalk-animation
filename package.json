@@ -53,12 +53,11 @@
   "dependencies": {
     "@figliolia/event-emitter": "^1.2.0",
     "chalk": "^5.6.2",
-    "gradient-string": "^2.0.2"
+    "gradient-string": "^3.0.0"
   },
   "devDependencies": {
     "@figliolia/child-process": "^1.0.4",
     "@figliolia/ts-packager": "^1.2.6",
-    "@types/gradient-string": "^1.1.6",
     "@types/node": "^20.19.39",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",

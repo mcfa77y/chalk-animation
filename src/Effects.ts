@@ -3,7 +3,10 @@ import gradient from "gradient-string";
 import { Decor } from "./Decor";
 
 export class Effects {
-  public static readonly longHsv = { interpolation: "hsv", hsvSpin: "long" };
+  public static readonly longHsv = {
+    interpolation: "hsv" as const,
+    hsvSpin: "long" as const,
+  };
   public static readonly glitchChars =
     "x*0987654321[]0-~@#(____!!!!\\|?????....0000\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
 
