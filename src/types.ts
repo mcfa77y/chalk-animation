@@ -1,4 +1,5 @@
-export type AnimationFN = (str: string, frame: number) => string;
+// export type AnimationFN = (str: string, frame: number) => string;
+export type AnimationFN = (str: string, frame: number, options?: any) => string;
 
 export type AnimationName =
   | "rainbow"

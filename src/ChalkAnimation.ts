@@ -22,11 +22,11 @@ export class ChalkAnimation {
   public static readonly karaoke = this.configure("karaoke", 50);
 
   private static configure(effect: AnimationName, delay: number) {
-    return (str: string, speed = 1) => {
+    return (str: string, speed = 1, options?: any) => {
       if (!speed || speed <= 0) {
         throw new Error("Expected `speed` to be an number greater than 0");
       }
-      return new Animation(Effects[effect], str, delay, speed).start();
+      return new Animation(Effects[effect], str, delay, speed, options).start();
     };
   }
 }

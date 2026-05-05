@@ -8,11 +8,13 @@ export class Animation extends FrameRate {
   stopped = false;
   initialized = false;
   effect: AnimationFN;
+  options: any;
   static readonly LINE_BREAKS = /\r\n|\r|\n/;
-  constructor(effect: AnimationFN, str: string, delay = 0, speed = 0) {
+  constructor(effect: AnimationFN, str: string, delay = 0, speed = 0, options?: any) {
     super(delay, speed);
     this.effect = effect;
     this.text = str.split(Animation.LINE_BREAKS);
+    this.options = options;
     this.lines = this.text.length;
   }
 
@@ -35,7 +37,7 @@ export class Animation extends FrameRate {
       "\u001B[" +
       `${this.lines}` +
       "F\u001B[G\u001B[2K" +
-      this.text.map(str => this.effect(str, this.current)).join("\n")
+      this.text.map(str => this.effect(str, this.current, this.options)).join("\n")
     );
   }
 

@@ -2,6 +2,15 @@ import chalk from "chalk";
 import gradient from "gradient-string";
 import { Decor } from "./Decor";
 
+export interface Color2Options {
+  primaryHexColor: string
+  secondaryHexColor: string
+}
+
+export interface Color1Options {
+  primaryHexColor: string;
+}
+
 export class Effects {
   public static readonly longHsv = {
     interpolation: "hsv" as const,
@@ -11,7 +20,7 @@ export class Effects {
     "x*0987654321[]0-~@#(____!!!!\\|?????....0000\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
 
   @Decor.bound
-  public static rainbow(str: string, frame: number) {
+  public static rainbow(str: string, frame: number, _options: any) {
     const hue = 5 * frame;
     const leftColor = { h: hue % 360, s: 1, v: 1 };
     const rightColor = { h: (hue + 1) % 360, s: 1, v: 1 };
@@ -19,12 +28,15 @@ export class Effects {
   }
 
   @Decor.bound
-  public static pulse(str: string, frame: number) {
+  public static pulse(str: string, frame: number, options: Color2Options = {
+    primaryHexColor: "#00ff10",
+    secondaryHexColor: "#e6e6e6"
+  }) {
     frame = (frame % 120) + 1;
     const transition = 6;
     const duration = 10;
-    const on = "#00ff10";
-    const off = "#e6e6e6";
+    const on = options.primaryHexColor;
+    const off = options.secondaryHexColor;
 
     if (frame >= 2 * transition + duration) {
       return chalk.hex(off)(str); // All white
@@ -38,7 +50,7 @@ export class Effects {
         ? 2 * transition + duration - frame
         : frame; // Revert animation
 
-    const g =
+    const gradientFn =
       frame <= transition / 2
         ? gradient([
           { color: off, pos: 0.5 - frame / transition },
@@ -52,11 +64,11 @@ export class Effects {
           { color: off, pos: 1 },
         ]);
 
-    return g(str);
+    return gradientFn(str);
   }
 
   @Decor.bound
-  public static glitch(str: string, frame: number) {
+  public static glitch(str: string, frame: number, _options: any) {
     if (
       (frame % 2) + (frame % 3) + (frame % 11) + (frame % 29) + (frame % 37) >
       52
@@ -95,7 +107,7 @@ export class Effects {
   }
 
   @Decor.bound
-  public static radar(str: string, frame: number) {
+  public static radar(str: string, frame: number, _options: any) {
     const depth = Math.floor(Math.min(str.length, str.length * 0.2));
     const step = Math.floor(255 / depth);
 
@@ -116,23 +128,29 @@ export class Effects {
   }
 
   @Decor.bound
-  public static neon(str: string, frame: number) {
+  public static neon(str: string, frame: number, options: Color2Options = {
+    primaryHexColor: "#d55ef2",
+    secondaryHexColor: "#585858"
+  }) {
     const color =
       frame % 2 === 0
-        ? chalk.dim.rgb(88, 80, 85)
-        : chalk.bold.rgb(213, 70, 242);
+        ? chalk.dim.hex(options.secondaryHexColor)
+        : chalk.bold.hex(options.primaryHexColor)
     return color(str);
   }
 
   @Decor.bound
-  public static karaoke(str: string, frame: number) {
+  public static karaoke(str: string, frame: number, options: Color2Options = {
+    primaryHexColor: "#ffb900",
+    secondaryHexColor: "#ffffff"
+  }) {
     const chars = (frame % (str.length + 20)) - 10;
     if (chars < 0) {
-      return chalk.white(str);
+      return chalk.hex(options.secondaryHexColor)(str);
     }
     return (
-      chalk.rgb(255, 187, 0).bold(str.substr(0, chars)) +
-      chalk.white(str.substr(chars))
+      chalk.hex(options.primaryHexColor).bold(str.substr(0, chars)) +
+      chalk.hex(options.secondaryHexColor)(str.substr(chars))
     );
   }
 }
