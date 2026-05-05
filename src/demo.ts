@@ -1,14 +1,14 @@
-import { Color2Options } from "./Effects";
+import { Color1Options, Color2Options } from "./Effects";
 import { ChalkAnimation } from "./index";
 
 (async () => {
   console.log("Chalk Animation Demo\n");
 
-  const animations: [string, (text: string, speed: number, options?: Color2Options) => any, options: any][] = [
+  const animations: [string, (text: string, speed: number, options?: Color1Options | Color2Options) => any, options: any][] = [
     ["neon", ChalkAnimation.neon, { primaryHexColor: "#d55ef2", secondaryHexColor: "#585858" }],
     ["radar", ChalkAnimation.radar, undefined],
     ["pulse", ChalkAnimation.pulse, { primaryHexColor: "#00ff10", secondaryHexColor: "#e6e6e6" }],
-    ["glitch", ChalkAnimation.glitch, undefined],
+    ["glitch", ChalkAnimation.glitch, { primaryHexColor: "#00ff00" }],
     ["rainbow", ChalkAnimation.rainbow, undefined],
     ["karaoke", ChalkAnimation.karaoke, { primaryHexColor: "#ffb900", secondaryHexColor: "#ffffff" }],
   ];

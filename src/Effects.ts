@@ -68,12 +68,13 @@ export class Effects {
   }
 
   @Decor.bound
-  public static glitch(str: string, frame: number, _options: any) {
+  public static glitch(str: string, frame: number, options: Color1Options = { primaryHexColor: "#00ff00" }) {
+    const { primaryHexColor } = options
     if (
       (frame % 2) + (frame % 3) + (frame % 11) + (frame % 29) + (frame % 37) >
       52
     ) {
-      return str.replace(/[^\r\n]/g, " ");
+      return chalk.hex(primaryHexColor)(str.replace(/[^\r\n]/g, " "));
     }
 
     const chunkSize = Math.max(3, Math.round(str.length * 0.02));
@@ -103,7 +104,7 @@ export class Effects {
       result = result.toLowerCase();
     }
 
-    return result;
+    return chalk.hex(primaryHexColor)(result);
   }
 
   @Decor.bound
