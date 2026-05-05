@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist",
     "sourceMap": true,
     "declaration": true,
     "types": [
-      "node",
-      "jest"
+      "node"
     ],
     "typeRoots": [
       "node_modules/@types"
@@ -31,16 +29,13 @@
     "noEmit": true
   },
   "include": [
-    "src",
-    "ci",
-    "**/*.json",
-    "**/*.ts",
-    "**/*.js"
+    "src"
   ],
   "exclude": [
     "coverage",
     "dist",
     "node_modules",
-    "src/__tests__"
+    "src/__tests__",
+    "src/demo.ts"
   ]
 }

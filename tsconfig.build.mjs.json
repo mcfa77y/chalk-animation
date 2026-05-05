@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "./src",
+    "outDir": "./dist/mjs",
+    "module": "ESNext",
+    "target": "ESNext",
+    "declaration": false,
+    "composite": false
+  },
+  "include": ["src"],
+  "exclude": ["src/__tests__", "src/demo.ts"]
+}

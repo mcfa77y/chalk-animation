@@ -44,12 +44,12 @@
     "src/*"
   ],
   "scripts": {
-    "build": "ts-packager -e src -c build-esm",
+    "build": "rm -rf dist && tsc -p tsconfig.build.types.json && tsc -p tsconfig.build.mjs.json",
     "lint": "tsx ci/commands/Lint.ts",
     "test": "tsx ci/commands/Test.ts",
     "demo": "tsx src/demo.ts",
     "postinstall": "npm run build",
-    "prepack": "ts-packager -e src -c build-esm"
+    "prepack": "rm -rf dist && tsc -p tsconfig.build.types.json && tsc -p tsconfig.build.mjs.json"
   },
   "dependencies": {
     "@figliolia/event-emitter": "^1.2.0",
